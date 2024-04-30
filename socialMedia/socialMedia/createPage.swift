@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct loginPage: View {
-    @State var username = ""
-    @State var password = ""
-    @State var email = ""
+    @State var name = ""
+    @State var pass = ""
     @State private var alert = false
+    @State private var showView = false
     @Binding var users : [User]
+    
     var body: some View {
         ZStack{
             Image("blue")
@@ -20,30 +21,26 @@ struct loginPage: View {
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
             VStack{
+                
                 Text("Create Account")
                     .font(.custom("MadimiOne-Regular", size: 50))
                     .padding(.top, 90)
-                TextField("\(Image(systemName: "person")) Username", text: $username)
+                TextField("\(Image(systemName: "person")) Username", text: $name)
                     .padding()
                     .frame(maxWidth: 370, maxHeight: 53)
                     .background(Color.white)
                     .font(.system(size: 20))
                     .cornerRadius(60)
                     .padding()
-                SecureField("\(Image(systemName: "lock.shield")) Password", text: $password)
+                    .autocapitalization(.none)
+                TextField("\(Image(systemName: "lock.shield")) Password", text: $pass)
                     .padding()
                     .font(.system(size: 20))
                     .background(Color.white)
                     .frame(maxWidth: 370, maxHeight: 53)
                     .cornerRadius(60)
                     .padding()
-                TextField("\(Image(systemName: "mail.and.text.magnifyingglass")) Email Address", text: $email)
-                    .padding()
-                    .frame(maxWidth: 370, maxHeight: 53)
-                    .background(Color.white)
-                    .font(.system(size: 20))
-                    .cornerRadius(60)
-                    .padding()
+                    .autocapitalization(.none)
                 Button(action: {
                     createUser()
                 }, label: {
@@ -61,16 +58,22 @@ struct loginPage: View {
                     )
                 }
                 .padding(.top, 80)
+                NavigationLink(destination: ContentView(), isActive: $showView){
+                    EmptyView()
+                }
             }
         }
     }
     func createUser() {
-        if username.isEmpty && password.isEmpty && email.isEmpty {
+        if name.isEmpty && pass.isEmpty {
             alert = true
         } else {
+            showView = true
             alert = false
-            let newUser = User(username: username, password: password, email: email) // create new user
+            let newUser = User(username: name, password: pass) // create new user
+            print(newUser)
             users.append(newUser) // append newUser to the users array
+            print(users)
         }
     }
 }

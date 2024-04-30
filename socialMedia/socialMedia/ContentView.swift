@@ -10,15 +10,16 @@ import SwiftUI
 struct User : Hashable {
     var username: String
     var password: String
-    var email: String
 }
 struct ContentView: View {
-    @State private var users: [User] = [
-    User(username: "hac", password: "123", email: "hac@gmail.com")
+    @State var users: [User] = [
+    User(username: "hac", password: "123")
     ]
-    @State var username = ""
-    @State var password = ""
+    @State var name = ""
+    @State var pass = ""
     @State var showView = false
+    @State private var alert = false
+    @State private var noUser = false
     var body: some View {
         NavigationView {
             ZStack {
@@ -33,21 +34,22 @@ struct ContentView: View {
                     Text("Sign in to your account")
                         .font(.custom("MadimiOne-Regular", size: 30))
                         .padding(.bottom, 80)
-                    TextField("\(Image(systemName: "person")) Username", text: $username)
+                    TextField("\(Image(systemName: "person")) Username", text: $name)
                         .padding()
                         .frame(maxWidth: 370, maxHeight: 53)
                         .background(Color.white)
                         .font(.system(size: 20))
                         .cornerRadius(60)
                         .padding()
-                    SecureField("\(Image(systemName: "lock.shield")) Password", text: $password)
+                        .autocapitalization(.none)
+                    TextField("\(Image(systemName: "lock.shield")) Password", text: $pass)
                         .padding()
                         .font(.system(size: 20))
                         .background(Color.white)
                         .frame(maxWidth: 370, maxHeight: 53)
                         .cornerRadius(60)
                         .padding()
-                    
+                        .autocapitalization(.none)
                     Button(action: {
                         checkUser()
                     }, label: {
@@ -59,6 +61,18 @@ struct ContentView: View {
                         .cornerRadius(50)
                         
                     })
+                    .alert(isPresented: $alert){ //alert if the user doesn't input anything
+                        Alert(
+                            title: Text("You did not type something"),
+                            message: Text("Please type to login")
+                        )
+                    }
+                    .alert(isPresented: $noUser){ //alert if the user doesn't input anything
+                        Alert(
+                            title: Text("Your username/password is wrong"),
+                            message: Text("Please type again")
+                        )
+                    }
                     .padding(.top, 80)
                     NavigationLink(destination: homePage(), isActive: $showView){
                         EmptyView()
@@ -80,6 +94,17 @@ struct ContentView: View {
         }
     }
     func checkUser(){
+        if name.isEmpty && pass.isEmpty {
+            alert = true
+        } else {
+            alert = false
+            for user in users{
+                if user.username == name && user.password == pass {
+                    showView = true
+                    print(user.username)
+                }
+            }
+        }
     }
 }
 
