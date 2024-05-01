@@ -42,7 +42,7 @@ struct ContentView: View {
                         .cornerRadius(60)
                         .padding()
                         .autocapitalization(.none)
-                    TextField("\(Image(systemName: "lock.shield")) Password", text: $pass)
+                    SecureField("\(Image(systemName: "lock.shield")) Password", text: $pass)
                         .padding()
                         .font(.system(size: 20))
                         .background(Color.white)
@@ -50,6 +50,7 @@ struct ContentView: View {
                         .cornerRadius(60)
                         .padding()
                         .autocapitalization(.none)
+                    
                     Button(action: {
                         checkUser()
                     }, label: {
@@ -67,7 +68,7 @@ struct ContentView: View {
                             message: Text("Please type to login")
                         )
                     }
-                    .alert(isPresented: $noUser){ //alert if the user doesn't input anything
+                    .alert(isPresented: $noUser){ //alert if the user input wrong
                         Alert(
                             title: Text("Your username/password is wrong"),
                             message: Text("Please type again")

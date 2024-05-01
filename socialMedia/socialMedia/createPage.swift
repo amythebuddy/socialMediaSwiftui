@@ -13,7 +13,7 @@ struct loginPage: View {
     @State private var alert = false
     @State private var showView = false
     @Binding var users : [User]
-    
+    @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
         ZStack{
             Image("blue")
@@ -33,7 +33,7 @@ struct loginPage: View {
                     .cornerRadius(60)
                     .padding()
                     .autocapitalization(.none)
-                TextField("\(Image(systemName: "lock.shield")) Password", text: $pass)
+                SecureField("\(Image(systemName: "lock.shield")) Password", text: $pass)
                     .padding()
                     .font(.system(size: 20))
                     .background(Color.white)
@@ -58,9 +58,6 @@ struct loginPage: View {
                     )
                 }
                 .padding(.top, 80)
-                NavigationLink(destination: ContentView(), isActive: $showView){
-                    EmptyView()
-                }
             }
         }
     }
@@ -73,6 +70,7 @@ struct loginPage: View {
             let newUser = User(username: name, password: pass) // create new user
             print(newUser)
             users.append(newUser) // append newUser to the users array
+            presentationMode.wrappedValue.dismiss() //dismisses the current view
             print(users)
         }
     }
