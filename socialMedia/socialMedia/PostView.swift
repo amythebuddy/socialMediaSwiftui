@@ -13,18 +13,28 @@ struct PostView: View {
     var body: some View {
         VStack{
             HStack{
-                Circle()
+                Image(post.avatar)
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: 60, height: 60)
-                    .padding()
+                    .clipShape(Circle())
+                    .padding(.horizontal, 10)
                 Text(post.userName)
                     .font(.system(size: 20))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            Image(post.userImage)
-                .resizable()
-                .scaledToFit()
-                .frame(height: .infinity)
-                .clipShape(Rectangle())
+            if post.hasImage == true {
+                Image(post.userImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: .infinity)
+                    .clipShape(Rectangle())
+            } else {
+                Text(post.caption)
+                    .frame(width: 350, height: 60)
+                    .background(.gray.opacity(0.1))
+                    .cornerRadius(10)
+            }
             HStack{
                 Button {
                     like.toggle()
@@ -53,12 +63,15 @@ struct PostView: View {
                     .padding(.horizontal, -10)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, -15)
-
+            .padding(.vertical, -6)
+            Divider()
+                .frame(height: 4)
+                .overlay(.gray)
         }
+        .padding(.vertical, 10)
     }
 }
 
 #Preview {
-    PostView(post: Post(userName: "ha", userImage: "prettysunrise", caption: "Good morning", hasImage: true))
+    PostView(post: Post(userName: "ha", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning", hasImage: true))
 }

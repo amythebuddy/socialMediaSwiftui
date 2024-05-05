@@ -16,8 +16,6 @@
 		33DADCF82BDFF9090071EE3A /* MadimiOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33DADCF72BDFF7B00071EE3A /* MadimiOne-Regular.ttf */; };
 		33DADCFC2BDFFAAE0071EE3A /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 33DADCFB2BDFFAAE0071EE3A /* BebasNeue-Regular.ttf */; };
 		33DADCFE2BE003B90071EE3A /* homePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DADCFD2BE003B90071EE3A /* homePage.swift */; };
-		33EF3EA72BDC0045004ABACE /* blue.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 33EF3EA62BDC0045004ABACE /* blue.jpeg */; };
-		33EF3EA92BDC01DC004ABACE /* blueBackground.avif in Resources */ = {isa = PBXBuildFile; fileRef = 33EF3EA82BDC01DC004ABACE /* blueBackground.avif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +30,6 @@
 		33DADCF72BDFF7B00071EE3A /* MadimiOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MadimiOne-Regular.ttf"; sourceTree = "<group>"; };
 		33DADCFB2BDFFAAE0071EE3A /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		33DADCFD2BE003B90071EE3A /* homePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePage.swift; sourceTree = "<group>"; };
-		33EF3EA62BDC0045004ABACE /* blue.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blue.jpeg; sourceTree = "<group>"; };
-		33EF3EA82BDC01DC004ABACE /* blueBackground.avif */ = {isa = PBXFileReference; lastKnownFileType = file; path = blueBackground.avif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +68,6 @@
 				33DADCF22BDFEBC00071EE3A /* createPage.swift */,
 				33DADCFD2BE003B90071EE3A /* homePage.swift */,
 				33AE1EAE2BE54D8E007CF492 /* PostView.swift */,
-				33EF3EA62BDC0045004ABACE /* blue.jpeg */,
-				33EF3EA82BDC01DC004ABACE /* blueBackground.avif */,
 				33DADCFB2BDFFAAE0071EE3A /* BebasNeue-Regular.ttf */,
 				33DADCF72BDFF7B00071EE3A /* MadimiOne-Regular.ttf */,
 				33C6CDE22BD81B6F00910354 /* Assets.xcassets */,
@@ -152,8 +146,6 @@
 				33C6CDE62BD81B6F00910354 /* Preview Assets.xcassets in Resources */,
 				33DADCFC2BDFFAAE0071EE3A /* BebasNeue-Regular.ttf in Resources */,
 				33C6CDE32BD81B6F00910354 /* Assets.xcassets in Resources */,
-				33EF3EA72BDC0045004ABACE /* blue.jpeg in Resources */,
-				33EF3EA92BDC01DC004ABACE /* blueBackground.avif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

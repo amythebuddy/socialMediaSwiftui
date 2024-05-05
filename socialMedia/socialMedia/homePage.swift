@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Post {
     var userName: String
+    var avatar: String
     var userImage: String
     var caption : String
     var hasImage : Bool
@@ -16,7 +17,9 @@ struct Post {
 
 struct homePage: View {
     @State var posts: [Post] = [
-    Post(userName: "hac", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)
+    Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
+    Post(userName: "amy", avatar: "blueBackground", userImage: "", caption: "I'm tired", hasImage: false),
+    Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine", hasImage: true)
     ]
     var body: some View {
         ScrollView{
