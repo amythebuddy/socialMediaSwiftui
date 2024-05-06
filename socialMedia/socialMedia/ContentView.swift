@@ -23,7 +23,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Image("blue")
+                Image("blue") //background
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
@@ -34,7 +34,7 @@ struct ContentView: View {
                     Text("Sign in to your account")
                         .font(.custom("MadimiOne-Regular", size: 30))
                         .padding(.bottom, 80)
-                    TextField("\(Image(systemName: "person")) Username", text: $name)
+                    TextField("\(Image(systemName: "person")) Username", text: $name) //asking username
                         .padding()
                         .frame(maxWidth: 370, maxHeight: 53)
                         .background(Color.white)
@@ -42,7 +42,7 @@ struct ContentView: View {
                         .cornerRadius(60)
                         .padding()
                         .autocapitalization(.none)
-                    SecureField("\(Image(systemName: "lock.shield")) Password", text: $pass)
+                    SecureField("\(Image(systemName: "lock.shield")) Password", text: $pass) //asking password
                         .padding()
                         .font(.system(size: 20))
                         .background(Color.white)
@@ -75,7 +75,7 @@ struct ContentView: View {
                         )
                     }
                     .padding(.top, 80)
-                    NavigationLink(destination: homePage(), isActive: $showView){
+                    NavigationLink(destination: BarView(), isActive: $showView){
                         EmptyView()
                     }
                     Spacer()
@@ -101,8 +101,10 @@ struct ContentView: View {
             alert = false
             for user in users{
                 if user.username == name && user.password == pass {
+                    noUser = false
                     showView = true
-                    print(user.username)
+                } else {
+                    noUser = true
                 }
             }
         }

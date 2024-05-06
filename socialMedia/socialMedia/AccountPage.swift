@@ -8,11 +8,72 @@
 import SwiftUI
 
 struct AccountPage: View {
+   var profile : Profile
+    @State var buttonTitle = "Follow"
+    @State var clicked = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            HStack{
+                VStack {
+                    Image(profile.avatar)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70, height: 70)
+                        .clipShape(Circle())
+                        .padding(.horizontal, 10)
+                    
+                    Text(profile.userName)
+                        .font(.system(size: 20))
+                }
+                Spacer()
+                VStack {
+                    Text("\(profile.posts)")
+                        .font(.system(size: 20))
+                    Text("Posts")
+                }
+                .padding()
+                VStack {
+                    Text("\(profile.followers)")
+                        .font(.system(size: 20))
+                    Text("Followers")
+                }
+ 
+                .frame(width: 80)
+                .padding(.trailing, -20)
+                VStack {
+                    Text("\(profile.following)")
+                        .font(.system(size: 20))
+                    Text("Following")
+                }
+                .padding(20)
+            }
+            Button {
+                clicked.toggle()
+                if clicked == false {
+                    buttonTitle = "Follow"
+//                    profile.followers -= 1
+                } else {
+                    buttonTitle = "Following"
+//                    profile.followers += 1
+                }
+//                print(profile.followers)
+            } label: {
+                Text(buttonTitle)
+                    .frame(width: 340)
+                    .padding(6)
+                    .foregroundStyle(clicked ? .black : .white)
+                    .font(.system(size: 23))
+                    .background(clicked ? .gray.opacity(0.2) : .blue)
+                    .cornerRadius(10)
+            }
+            Divider()
+                .frame(height: 4)
+                .overlay(.gray)
+        }
+        Spacer()
     }
 }
 
 #Preview {
-    AccountPage()
+    AccountPage(profile: Profile(userName: "hac", avatar: "hacavatar", following: 20, followers: 10, posts: 2))
 }

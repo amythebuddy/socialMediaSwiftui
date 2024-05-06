@@ -9,16 +9,22 @@ import SwiftUI
 
 struct BarView: View {
     var body: some View {
-        TabView{
-            homePage()
-                .tabItem {
-                    Label("", systemImage: "house")
+        NavigationView{
+            TabView{
+                VStack {
+                    homePage()
                 }
-            
-            AccountPage()
-                .tabItem {
-                    Label("",systemImage: "person")
+                    .tabItem {
+                        Label("", systemImage: "house")
                 }
+                
+                
+//                AccountPage()
+//                    .tabItem {
+//                        Label("",systemImage: "person")
+//                    }
+            }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

@@ -10,8 +10,8 @@ import SwiftUI
 struct loginPage: View {
     @State var name = ""
     @State var pass = ""
-    @State private var alert = false
-    @State private var showView = false
+    @State private var alert = false // for empty input
+    @State private var showView = false // for transferring back to the login
     @Binding var users : [User]
     @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
@@ -21,7 +21,6 @@ struct loginPage: View {
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
             VStack{
-                
                 Text("Create Account")
                     .font(.custom("MadimiOne-Regular", size: 50))
                     .padding(.top, 90)
@@ -63,9 +62,9 @@ struct loginPage: View {
     }
     func createUser() {
         if name.isEmpty && pass.isEmpty {
-            alert = true
+            alert = true //to alert the user that input has nothing
         } else {
-            showView = true
+            showView = true // to go back to the login page
             alert = false
             let newUser = User(username: name, password: pass) // create new user
             print(newUser)
