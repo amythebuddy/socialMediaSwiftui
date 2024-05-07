@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-struct Profile : Hashable{
-    var userName: String
-    var avatar: String
-    var following : Int
-    var followers: Int
-    var posts : Int
-}
 
 struct PostView: View {
     var post : Post
@@ -22,6 +15,8 @@ struct PostView: View {
     Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
     Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5)
     ]
+    @State var showView = false
+    @State private var userFound = false
     @State var like = false
     var body: some View {
         NavigationView{
@@ -29,7 +24,9 @@ struct PostView: View {
                 HStack{
                     ForEach(profiles, id: \.self) { profile in
                         if profile.userName == post.userName {
-                            NavigationLink(destination: AccountPage(profile : profile)){
+                            Button(action: {
+                                searchProfile(userName: profile.userName)
+                            }, label: {
                                 Image(post.avatar)
                                     .resizable()
                                     .scaledToFit()
@@ -38,7 +35,21 @@ struct PostView: View {
                                     .padding(.horizontal, 10)
                                 Text(post.userName)
                                     .font(.system(size: 20))
+                                
+                            })
+                            NavigationLink(destination: AccountPage(profile: profile), isActive: $showView){
+                                EmptyView()
                             }
+                            //                            NavigationLink(destination: AccountPage(profile: )){
+                            //                                Image(post.avatar)
+                            //                                    .resizable()
+                            //                                    .scaledToFit()
+                            //                                    .frame(width: 60, height: 60)
+                            //                                    .clipShape(Circle())
+                            //                                    .padding(.horizontal, 10)
+                            //                                Text(post.userName)
+                            //                                    .font(.system(size: 20))
+                            //                        }
                         }
                     }
                 }
@@ -91,7 +102,11 @@ struct PostView: View {
             .padding(.vertical, 10)
         }
     }
+    func searchProfile(userName: String){
+        
+    }
 }
+
 
 #Preview {
     PostView(post: Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning", hasImage: true))

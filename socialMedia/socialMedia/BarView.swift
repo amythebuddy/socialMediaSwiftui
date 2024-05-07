@@ -18,7 +18,10 @@ struct BarView: View {
                         Label("", systemImage: "house")
                 }
                 
-                
+                AddPost()
+                    .tabItem {
+                        Label("", systemImage: "plus.square")
+                    }
 //                AccountPage()
 //                    .tabItem {
 //                        Label("",systemImage: "person")

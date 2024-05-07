@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+struct Profile : Hashable{
+    var userName: String
+    var avatar: String
+    var following : Int
+    var followers: Int
+    var posts : Int
+}
+
 struct AccountPage: View {
    var profile : Profile
     @State var buttonTitle = "Follow"
