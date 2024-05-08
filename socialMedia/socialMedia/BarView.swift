@@ -18,14 +18,16 @@ struct BarView: View {
                         Label("", systemImage: "house")
                 }
                 
-                AddPost()
+                AddPost(post: Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning", hasImage: true))
                     .tabItem {
                         Label("", systemImage: "plus.square")
                     }
-//                AccountPage()
-//                    .tabItem {
-//                        Label("",systemImage: "person")
-//                    }
+                VStack {
+                    AccountPage(profile: Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0))
+                }
+                        .tabItem {
+                            Label("",systemImage: "person")
+                    }
             }
             .navigationBarBackButtonHidden(true)
         }
