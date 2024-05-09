@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct BarView: View {
+    var profiles : [Profile]
     var body: some View {
         NavigationView{
             TabView{
                 VStack {
-                    homePage()
+                    homePage(profiles: profiles) 
                 }
                     .tabItem {
                         Label("", systemImage: "house")
                 }
                 
-                AddPost(post: Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning", hasImage: true))
+                AddPost(post: .constant([]), profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0))
                     .tabItem {
                         Label("", systemImage: "plus.square")
                     }
@@ -29,11 +30,11 @@ struct BarView: View {
                             Label("",systemImage: "person")
                     }
             }
-            .navigationBarBackButtonHidden(true)
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    BarView()
+    BarView(profiles: [Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0)])
 }

@@ -13,6 +13,7 @@ struct loginPage: View {
     @State private var alert = false // for empty input
     @State private var showView = false // for transferring back to the login
     @Binding var users : [User]
+    @Binding var profiles : [Profile]
     @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
         ZStack{
@@ -67,14 +68,14 @@ struct loginPage: View {
             showView = true // to go back to the login page
             alert = false
             let newUser = User(username: name, password: pass) // create new user
-            print(newUser)
             users.append(newUser) // append newUser to the users array
+            let newProfile = Profile(userName: name, avatar: "", following: 0, followers: 0, posts: 0) // create new profile
+            profiles.append(newProfile) // append newProfile to the profiles array
             presentationMode.wrappedValue.dismiss() //dismisses the current view
-            print(users)
         }
     }
 }
 
 #Preview {
-    loginPage(users: .constant([]))
+    loginPage(users: .constant([]), profiles: .constant([]))
 }

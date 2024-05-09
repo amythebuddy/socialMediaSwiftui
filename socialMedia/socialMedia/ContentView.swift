@@ -15,6 +15,12 @@ struct ContentView: View {
     @State var users: [User] = [
     User(username: "hac", password: "123")
     ]
+    @State var profiles: [Profile] = [
+        Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
+        Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
+        Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
+        Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
+    ]
     @State var name = ""
     @State var pass = ""
     @State var showView = false
@@ -75,14 +81,14 @@ struct ContentView: View {
                         )
                     }
                     .padding(.top, 80)
-                    NavigationLink(destination: BarView(), isActive: $showView){
+                    NavigationLink(destination: BarView(profiles: profiles), isActive: $showView){
                         EmptyView()
                     }
                     Spacer()
                     HStack{
                         Text("Don't have an account?")
                             .font(.custom("MadimiOne-Regular", size: 25))
-                        NavigationLink(destination: loginPage(users: $users), label: {
+                        NavigationLink(destination: loginPage(users: $users, profiles: $profiles), label: {
                             Text("Create")
                                 .font(.custom("BebasNeue-Regular", size: 30))
                                 .foregroundColor(.black)

@@ -8,12 +8,25 @@
 import SwiftUI
 
 struct AddPost: View {
-    var post : Post
+    @Binding var post : [Post]
+    @State var profile: Profile
     @State var content = ""
+    @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
         NavigationView{
             VStack{
-                
+                HStack {
+                    Image(profile.avatar)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70, height: 70)
+                        .clipShape(Circle())
+                        .padding(.horizontal, 10)
+                    
+                    Text(profile.userName)
+                        .font(.system(size: 20))
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 TextField("What is on your mind?", text: $content)
                     .frame(maxWidth: 370, maxHeight: 500)
                     .padding()
@@ -33,10 +46,12 @@ struct AddPost: View {
         }
     }
     func publishPost(){
-        
+        let newPost = Post(userName: profile.userName, avatar: profile.avatar, userImage: "", caption: content, hasImage: false)
+        post.append(newPost)
+        presentationMode.wrappedValue.dismiss() //dismisses the current view
     }
 }
 
 #Preview {
-    AddPost(post: Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning", hasImage: true))
+    AddPost(post: .constant([]), profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0))
 }
