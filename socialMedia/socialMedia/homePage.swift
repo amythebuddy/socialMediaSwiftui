@@ -18,39 +18,40 @@ struct Post : Hashable{
 struct homePage: View {
     @State var showView = false
     @State var account: Profile = Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0)
-    @State var posts: [Post] = [
-        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
-        Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false),
-        Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true),
-        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
-        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)
-    ]
-    var profiles: [Profile]
+//    @State var posts: [Post] = [
+//        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
+//        Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false),
+//        Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true),
+//        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
+//        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)
+//    ]
+//    var profiles: [Profile]
+    var users: [User] // passing data to display the post
     var body: some View {
         NavigationView{
             ScrollView{
                 LazyVStack {
                     
-                    ForEach(posts.indices, id: \.self) { i in
+                    ForEach(user.post.indices, id: \.self) { i in //show each user avatar and username
                         Button(action: {
-                            searchProfile(username: posts[i].userName)
+                            searchProfile(username: user.post[i].userName)
                         }, label: {
-                            Image(posts[i].avatar)
+                            Image(user.post[i].avatar)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 60, height: 60)
                                 .clipShape(Circle())
                                 .padding(.horizontal, 10)
-                            Text(posts[i].userName)
+                            Text(user.post[i].userName)
                                 .font(.system(size: 20))
                             
-                        })
-                        //                            .padding(.vertical, -50)
+                        }) 
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        
                         NavigationLink(destination: AccountPage(profile: account), isActive: $showView){
                             EmptyView()
                         }
-                        PostView(post: posts[i])
+                        PostView(post: user.post[i]) // showing the post about, image and caption
                         Spacer()
                     }
                     
@@ -61,15 +62,13 @@ struct homePage: View {
         }
     }
     func searchProfile(username: String){
-        for profile in profiles {
-            if profile.userName == username {
-                account = profile
+        if user.profile.userName == username { // search the profile of the person who add post
+                account = user.profile // change the account so the AccountPage receive the person who add post
                 showView = true
             }
-        }
     }
 }
 
 #Preview {
-    homePage(profiles: [Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0)])
+    homePage(user: User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]))
 }

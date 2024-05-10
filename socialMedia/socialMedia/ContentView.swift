@@ -10,17 +10,25 @@ import SwiftUI
 struct User : Hashable {
     var username: String
     var password: String
+    var profile: Profile
+    var post: [Post]
 }
 struct ContentView: View {
     @State var users: [User] = [
-    User(username: "hac", password: "123")
+        User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
+             post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
+                    Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]),
+        User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
+             post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false)]),
+        User(username: "Daily Meme", password: "123", profile: Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
+             post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true)])
     ]
-    @State var profiles: [Profile] = [
-        Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
-        Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
-        Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
-        Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
-    ]
+    @State var loggedIn: [User] = []
+//    @State var profiles: [Profile] = [
+//        Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
+//        Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
+//        Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5)
+//    ]
     @State var name = ""
     @State var pass = ""
     @State var showView = false
@@ -81,14 +89,14 @@ struct ContentView: View {
                         )
                     }
                     .padding(.top, 80)
-                    NavigationLink(destination: BarView(profiles: profiles), isActive: $showView){
+                    NavigationLink(destination: BarView(user: users), isActive: $showView){ // go to another page with stored data
                         EmptyView()
                     }
                     Spacer()
                     HStack{
                         Text("Don't have an account?")
                             .font(.custom("MadimiOne-Regular", size: 25))
-                        NavigationLink(destination: loginPage(users: $users, profiles: $profiles), label: {
+                        NavigationLink(destination: loginPage(users: $users), label: {
                             Text("Create")
                                 .font(.custom("BebasNeue-Regular", size: 30))
                                 .foregroundColor(.black)
@@ -108,6 +116,7 @@ struct ContentView: View {
             for user in users{
                 if user.username == name && user.password == pass {
                     noUser = false
+                    loggedIn.append(user) // to keep track who is the user that is logging in
                     showView = true
                 } else {
                     noUser = true

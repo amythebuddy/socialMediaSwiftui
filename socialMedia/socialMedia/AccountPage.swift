@@ -16,32 +16,33 @@ struct Profile : Hashable{
 }
 
 struct AccountPage: View {
-   var profile : Profile
+//   var profile : Profile
+    var user: User
     @State var buttonTitle = "Follow"
-    @State var clicked = false
+    @State var isFollowed = false
     var body: some View {
         VStack{
             HStack{
                 VStack {
-                    Image(profile.avatar)
+                    Image(user.profile.avatar)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 70, height: 70)
                         .clipShape(Circle())
                         .padding(.horizontal, 10)
                     
-                    Text(profile.userName)
+                    Text(user.profile.userName)
                         .font(.system(size: 20))
                 }
                 Spacer()
                 VStack {
-                    Text("\(profile.posts)")
+                    Text("\(user.profile.posts)")
                         .font(.system(size: 20))
                     Text("Posts")
                 }
                 .padding()
                 VStack {
-                    Text("\(profile.followers)")
+                    Text("\(user.profile.followers)")
                         .font(.system(size: 20))
                     Text("Followers")
                 }
@@ -49,15 +50,15 @@ struct AccountPage: View {
                 .frame(width: 80)
                 .padding(.trailing, -20)
                 VStack {
-                    Text("\(profile.following)")
+                    Text("\(user.profile.following)")
                         .font(.system(size: 20))
                     Text("Following")
                 }
                 .padding(20)
             }
             Button {
-                clicked.toggle()
-                if clicked == false {
+                isFollowed.toggle()
+                if isFollowed == false {
                     buttonTitle = "Follow"
 //                    profile.followers -= 1
                 } else {
@@ -69,9 +70,9 @@ struct AccountPage: View {
                 Text(buttonTitle)
                     .frame(width: 340)
                     .padding(6)
-                    .foregroundStyle(clicked ? .black : .white)
+                    .foregroundStyle(isFollowed ? .black : .white)
                     .font(.system(size: 23))
-                    .background(clicked ? .gray.opacity(0.2) : .blue)
+                    .background(isFollowed ? .gray.opacity(0.2) : .blue)
                     .cornerRadius(10)
             }
             Divider()
@@ -83,5 +84,5 @@ struct AccountPage: View {
 }
 
 #Preview {
-    AccountPage(profile: Profile(userName: "hac", avatar: "hacavatar", following: 20, followers: 10, posts: 2))
+    AccountPage(user: User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]))
 }

@@ -8,27 +8,33 @@
 import SwiftUI
 
 struct BarView: View {
-    var profiles : [Profile]
+    @State var user : [User]
+//    var profiles : [Profile]
+    @State private var tabSelected: Int = 1
     var body: some View {
         NavigationView{
             TabView{
                 VStack {
-                    homePage(profiles: profiles) 
+                    homePage(user: user)
                 }
                     .tabItem {
                         Label("", systemImage: "house")
                 }
+                    .tag(1)
                 
                 AddPost(post: .constant([]), profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0))
                     .tabItem {
                         Label("", systemImage: "plus.square")
+                        
                     }
+                    .tag(2)
                 VStack {
-                    AccountPage(profile: Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0))
+                    UserProfile(loggedIn: user, tabSelected: tabSelected, profile: profiles)
                 }
-                        .tabItem {
+                    .tabItem {
                             Label("",systemImage: "person")
                     }
+                    .tag(3)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -36,5 +42,5 @@ struct BarView: View {
 }
 
 #Preview {
-    BarView(profiles: [Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0)])
+    BarView(user: [User(username: "hac", password: "123")], profiles: [Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0)])
 }
