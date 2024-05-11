@@ -33,6 +33,7 @@ struct AccountPage: View {
                     Text(profile.userName)
                         .font(.system(size: 20))
                 }
+                .padding(.horizontal)
                 Spacer()
                 VStack {
                     Text("\(profile.posts)")

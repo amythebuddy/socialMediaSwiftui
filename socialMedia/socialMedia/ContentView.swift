@@ -15,11 +15,11 @@ struct User : Hashable {
 }
 struct ContentView: View {
     @State var users: [User] = [ // dummy data
+        User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
+             post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false)]),
         User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
              post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
                     Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]),
-        User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
-             post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false)]),
         User(username: "Daily Meme", password: "123", profile: Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
              post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true)])
     ]
@@ -112,15 +112,17 @@ struct ContentView: View {
         if name.isEmpty && pass.isEmpty {
             alert = true
         } else {
-            alert = false
+            var foundUser = false
             for user in users{
                 if user.username == name && user.password == pass {
                     noUser = false
                     loggedIn = user // to keep track who is the user that is logging in
                     showView = true
-                } else {
-                    noUser = true
+                    foundUser = true
                 }
+            }
+            if !foundUser {
+                noUser = true
             }
         }
     }
