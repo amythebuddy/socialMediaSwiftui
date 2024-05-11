@@ -14,7 +14,7 @@ struct User : Hashable {
     var post: [Post]
 }
 struct ContentView: View {
-    @State var users: [User] = [
+    @State var users: [User] = [ // dummy data
         User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
              post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
                     Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]),
@@ -23,7 +23,7 @@ struct ContentView: View {
         User(username: "Daily Meme", password: "123", profile: Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
              post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true)])
     ]
-    @State var loggedIn: [User] = []
+    @State var loggedIn: User = User(username: "", password: "", profile: Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "", avatar: "", userImage: "", caption: "", hasImage: false)])
 //    @State var profiles: [Profile] = [
 //        Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
 //        Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
@@ -89,7 +89,7 @@ struct ContentView: View {
                         )
                     }
                     .padding(.top, 80)
-                    NavigationLink(destination: BarView(user: users), isActive: $showView){ // go to another page with stored data
+                    NavigationLink(destination: BarView(users: users, loggedIn: loggedIn), isActive: $showView){ // go to another page with stored data
                         EmptyView()
                     }
                     Spacer()
@@ -116,7 +116,7 @@ struct ContentView: View {
             for user in users{
                 if user.username == name && user.password == pass {
                     noUser = false
-                    loggedIn.append(user) // to keep track who is the user that is logging in
+                    loggedIn = user // to keep track who is the user that is logging in
                     showView = true
                 } else {
                     noUser = true

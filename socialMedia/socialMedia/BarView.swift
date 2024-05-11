@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct BarView: View {
-    @State var user : [User]
+    @State var users : [User]
+    var loggedIn: User
 //    var profiles : [Profile]
     @State private var tabSelected: Int = 1
     var body: some View {
         NavigationView{
             TabView{
                 VStack {
-                    homePage(user: user)
+                    homePage(users: users)
                 }
                     .tabItem {
                         Label("", systemImage: "house")
@@ -29,7 +30,7 @@ struct BarView: View {
                     }
                     .tag(2)
                 VStack {
-                    UserProfile(loggedIn: user, tabSelected: tabSelected, profile: profiles)
+                    UserProfile(loggedIn: loggedIn, tabSelected: tabSelected)
                 }
                     .tabItem {
                             Label("",systemImage: "person")
@@ -42,5 +43,5 @@ struct BarView: View {
 }
 
 #Preview {
-    BarView(user: [User(username: "hac", password: "123")], profiles: [Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0)])
+    BarView(users: [User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "", userImage: "", caption: "", hasImage: false)])], loggedIn: User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "amy", avatar: "", userImage: "", caption: "", hasImage: false)]))
 }

@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct UserProfile: View {
-    var loggedIn: [User]
+    var loggedIn: User
     var tabSelected: Int
-    var profile: [Profile]
     var body: some View {
 //        ForEach(profile.indices, id: \.self) { i in
 //            if tabSelected == 3 && loggedIn[i].username == profile[i].userName{
@@ -32,6 +31,5 @@ struct UserProfile: View {
 }
 
 #Preview {
-    UserProfile(loggedIn: [User(username: "hac", password: "123")], tabSelected: 3,
-                profile: [Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0)])
+    UserProfile(loggedIn: User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "", userImage: "", caption: "", hasImage: false)]), tabSelected: 3)
 }

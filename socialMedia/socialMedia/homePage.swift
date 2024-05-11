@@ -31,28 +31,30 @@ struct homePage: View {
         NavigationView{
             ScrollView{
                 LazyVStack {
-                    
-                    ForEach(user.post.indices, id: \.self) { i in //show each user avatar and username
-                        Button(action: {
-                            searchProfile(username: user.post[i].userName)
-                        }, label: {
-                            Image(user.post[i].avatar)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60, height: 60)
-                                .clipShape(Circle())
-                                .padding(.horizontal, 10)
-                            Text(user.post[i].userName)
-                                .font(.system(size: 20))
-                            
-                        }) 
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        NavigationLink(destination: AccountPage(profile: account), isActive: $showView){
-                            EmptyView()
+                    ForEach(users.indices, id: \.self) { i in
+                        ForEach(users[i].post.indices, id: \.self) { j in //show each user avatar and username
+                            VStack{
+                                Button(action: {
+                                    searchProfile(username: users[i].post[j].userName)
+                                }, label: {
+                                    Image(users[i].post[j].avatar)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 60, height: 60)
+                                        .clipShape(Circle())
+                                        .padding(.horizontal, 10)
+                                    Text(users[i].post[j].userName)
+                                        .font(.system(size: 20))
+                                })
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                NavigationLink(destination: AccountPage(profile: account), isActive: $showView){
+                                    EmptyView()
+                                }
+                                PostView(post: users[i].post[j]) // showing the post about, image and caption
+                                Spacer()
+                            }
                         }
-                        PostView(post: user.post[i]) // showing the post about, image and caption
-                        Spacer()
                     }
                     
                 }
@@ -62,13 +64,15 @@ struct homePage: View {
         }
     }
     func searchProfile(username: String){
-        if user.profile.userName == username { // search the profile of the person who add post
+        for user in users{
+            if user.profile.userName == username { // search the profile of the person who add post
                 account = user.profile // change the account so the AccountPage receive the person who add post
                 showView = true
             }
+        }
     }
 }
 
 #Preview {
-    homePage(user: User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]))
+    homePage(users: [User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)])])
 }

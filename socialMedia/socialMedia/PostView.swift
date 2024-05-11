@@ -9,22 +9,21 @@ import SwiftUI
 
 
 struct PostView: View {
-//    var post : Post
-    var user: User
+    var post : Post
     @State var showView = false
     @State private var userFound = false
     @State var like = false
     var body: some View {
         NavigationView{
             VStack{
-                if user.post[0].hasImage == true {
-                    Image(user.post[0].userImage)
+                if post.hasImage == true {
+                    Image(post.userImage)
                         .resizable()
                         .scaledToFit()
                         .frame(height: 300)
                         .clipShape(Rectangle())
                 } else {
-                    Text(user.post[0].caption)
+                    Text(post.caption)
                         .frame(width: 350, height: 250)
                         .background(.gray.opacity(0.1))
                         .cornerRadius(10)
@@ -49,11 +48,11 @@ struct PostView: View {
                 .padding(.vertical, -15)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
-                    Text(user.post[0].userName)
+                    Text(post.userName)
                         .padding()
                         .fontWeight(.bold)
                         .font(.system(size: 20))
-                    Text(user.post[0].caption)
+                    Text(post.caption)
                         .padding(.horizontal, -10)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -69,5 +68,5 @@ struct PostView: View {
 
 
 #Preview {
-    PostView(user: User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]))
+    PostView(post: Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true))
 }

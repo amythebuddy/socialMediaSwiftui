@@ -16,33 +16,32 @@ struct Profile : Hashable{
 }
 
 struct AccountPage: View {
-//   var profile : Profile
-    var user: User
+   var profile : Profile
     @State var buttonTitle = "Follow"
     @State var isFollowed = false
     var body: some View {
         VStack{
             HStack{
                 VStack {
-                    Image(user.profile.avatar)
+                    Image(profile.avatar)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 70, height: 70)
                         .clipShape(Circle())
                         .padding(.horizontal, 10)
                     
-                    Text(user.profile.userName)
+                    Text(profile.userName)
                         .font(.system(size: 20))
                 }
                 Spacer()
                 VStack {
-                    Text("\(user.profile.posts)")
+                    Text("\(profile.posts)")
                         .font(.system(size: 20))
                     Text("Posts")
                 }
                 .padding()
                 VStack {
-                    Text("\(user.profile.followers)")
+                    Text("\(profile.followers)")
                         .font(.system(size: 20))
                     Text("Followers")
                 }
@@ -50,7 +49,7 @@ struct AccountPage: View {
                 .frame(width: 80)
                 .padding(.trailing, -20)
                 VStack {
-                    Text("\(user.profile.following)")
+                    Text("\(profile.following)")
                         .font(.system(size: 20))
                     Text("Following")
                 }
@@ -84,5 +83,5 @@ struct AccountPage: View {
 }
 
 #Preview {
-    AccountPage(user: User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]))
+    AccountPage(profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0))
 }
