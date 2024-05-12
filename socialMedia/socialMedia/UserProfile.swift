@@ -48,20 +48,28 @@ struct UserProfile: View {
             Divider()
                 .frame(height: 4)
                 .overlay(.gray)
-            ForEach(loggedIn.post, id: \.self) { post in
-                HStack {
-                    Image(post.avatar)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
-                        .padding(.horizontal, 10)
-                    Text(post.userName)
-                        .font(.system(size: 20))
+            if loggedIn.profile.posts == 0 {
+                EmptyView()
+            } else {
+                ScrollView{
+                    LazyVStack {
+                        ForEach(loggedIn.post, id: \.self) { post in
+                            HStack {
+                                Image(post.avatar)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+                                    .padding(.horizontal, 10)
+                                Text(post.userName)
+                                    .font(.system(size: 20))
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            PostView(post: post)
+                        }
+                    }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding()
-                PostView(post: post)
             }
         }
         Spacer()

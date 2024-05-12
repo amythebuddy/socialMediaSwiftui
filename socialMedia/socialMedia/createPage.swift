@@ -11,7 +11,6 @@ struct loginPage: View {
     @State var name = ""
     @State var pass = ""
     @State private var alert = false // for empty input
-    @State private var showView = false // for transferring back to the login
     @Binding var users : [User]
     @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
@@ -64,7 +63,6 @@ struct loginPage: View {
         if name.isEmpty && pass.isEmpty {
             alert = true //to alert the user that input has nothing
         } else {
-            showView = true // to go back to the login page
             alert = false
             let newUser = User(username: name, password: pass, profile: Profile(userName: name, avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: name, avatar: "", userImage: "", caption: "", hasImage: false)]) // create new user
             users.append(newUser) // append newUser to the users array

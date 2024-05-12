@@ -10,6 +10,7 @@ import SwiftUI
 struct AddPost: View {
     @Binding var loggedIn: User
     @State var content = ""
+    @State private var showView = false // for transferring back to the login
     @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
         NavigationView{
@@ -45,8 +46,10 @@ struct AddPost: View {
         }
     }
     func publishPost(){
+        showView = true // to go back to the login page
         let newPost = Post(userName: loggedIn.profile.userName, avatar: loggedIn.profile.avatar, userImage: "", caption: content, hasImage: false)
         loggedIn.post.append(newPost)
+        loggedIn.profile.posts += 1
         presentationMode.wrappedValue.dismiss() //dismisses the current view
     }
 }

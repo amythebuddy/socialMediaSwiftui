@@ -26,6 +26,7 @@ struct PostView: View {
                     Text(post.caption)
                         .frame(width: 350, height: 250)
                         .background(.gray.opacity(0.1))
+                        .font(.system(size: 20))
                         .cornerRadius(10)
                 }
                 HStack{
@@ -58,8 +59,6 @@ struct PostView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, -6)
                 Divider()
-                    .frame(height: 4)
-                    .overlay(.gray)
             }
             
         }

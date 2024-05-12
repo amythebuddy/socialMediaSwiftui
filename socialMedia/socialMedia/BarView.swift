@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BarView: View {
     @State var users : [User]
-    var loggedIn: User
+    @State var loggedIn: User
 //    var profiles : [Profile]
     @State private var tabSelected: Int = 1
     var body: some View {
@@ -23,7 +23,7 @@ struct BarView: View {
                 }
                     .tag(1)
                 
-                AddPost(loggedIn: loggedIn)
+                AddPost(loggedIn: $loggedIn)
                     .tabItem {
                         Label("", systemImage: "plus.square")
                         
