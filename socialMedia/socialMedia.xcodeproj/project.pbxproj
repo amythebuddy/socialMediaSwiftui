@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		062AB2DD2BF1752C0091FAED /* EditUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062AB2DC2BF1752C0091FAED /* EditUserProfile.swift */; };
 		066C72822BE7FBC1001C8328 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066C72812BE7FBC1001C8328 /* BarView.swift */; };
 		066C72842BE7FD65001C8328 /* AccountPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066C72832BE7FD65001C8328 /* AccountPage.swift */; };
 		33AE1EAF2BE54D8E007CF492 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AE1EAE2BE54D8E007CF492 /* PostView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		062AB2DC2BF1752C0091FAED /* EditUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfile.swift; sourceTree = "<group>"; };
 		066C72812BE7FBC1001C8328 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		066C72832BE7FD65001C8328 /* AccountPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountPage.swift; sourceTree = "<group>"; };
 		33AE1EAE2BE54D8E007CF492 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				33C0EFD52BEA80B700C15C3B /* AddPost.swift */,
 				066C72832BE7FD65001C8328 /* AccountPage.swift */,
 				33BDEA962BEE770700AD2E52 /* UserProfile.swift */,
+				062AB2DC2BF1752C0091FAED /* EditUserProfile.swift */,
 				33AE1EAE2BE54D8E007CF492 /* PostView.swift */,
 				33DADCFB2BDFFAAE0071EE3A /* BebasNeue-Regular.ttf */,
 				33DADCF72BDFF7B00071EE3A /* MadimiOne-Regular.ttf */,
@@ -168,6 +171,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				062AB2DD2BF1752C0091FAED /* EditUserProfile.swift in Sources */,
 				066C72822BE7FBC1001C8328 /* BarView.swift in Sources */,
 				33C6CDE12BD81B6D00910354 /* ContentView.swift in Sources */,
 				066C72842BE7FD65001C8328 /* AccountPage.swift in Sources */,

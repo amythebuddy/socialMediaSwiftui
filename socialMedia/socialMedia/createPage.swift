@@ -64,7 +64,7 @@ struct loginPage: View {
             alert = true //to alert the user that input has nothing
         } else {
             alert = false
-            let newUser = User(username: name, password: pass, profile: Profile(userName: name, avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: name, avatar: "", userImage: "", caption: "", hasImage: false)]) // create new user
+            let newUser = User(username: name, password: pass, profile: Profile(userName: name, avatar: "person", following: 0, followers: 0, posts: 0), post: [Post(userName: name, avatar: "person", userImage: "", caption: "", hasImage: false)]) // create new user
             users.append(newUser) // append newUser to the users array
             presentationMode.wrappedValue.dismiss() //dismisses the current view
         }

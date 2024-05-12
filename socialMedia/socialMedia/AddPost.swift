@@ -9,8 +9,9 @@ import SwiftUI
 
 struct AddPost: View {
     @Binding var loggedIn: User
-    @State var content = ""
-    @State private var showView = false // for transferring back to the login
+    @State var content = "What is on your mind?"
+    @State private var isPublished = false
+    @State private var isEmpty = false
     @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
         NavigationView{
@@ -27,11 +28,16 @@ struct AddPost: View {
                         .font(.system(size: 20))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                TextField("What is on your mind?", text: $content)
+                TextEditor(text: $content) //TextEditor will grab the content that user put
                     .frame(maxWidth: 370, maxHeight: 500)
                     .padding()
+                    .foregroundStyle(content == "What is on your mind?" ? .gray : .primary)
+                    .onTapGesture {
+                        content = ""
+                    }
+                    .font(.system(size: 30))
                     .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10) //TextEditor will grab the content that user put
+                    .cornerRadius(10)
                 Button(action: {
                     publishPost()
                 }, label: {
@@ -42,15 +48,30 @@ struct AddPost: View {
                         .background(Color.purple)
                         .cornerRadius(50)
                 })
+                .alert(isPresented: $isPublished){ //alert if the user doesn't input anything
+                    Alert(
+                        title: Text("You successfully published a post!")
+                    )
+                }
+                .alert(isPresented: $isEmpty){ //alert if the user doesn't input anything
+                    Alert(
+                        title: Text("You did not type something"),
+                        message: Text("Please type to post")
+                    )
+                }
             }
         }
     }
     func publishPost(){
-        showView = true // to go back to the login page
-        let newPost = Post(userName: loggedIn.profile.userName, avatar: loggedIn.profile.avatar, userImage: "", caption: content, hasImage: false)
-        loggedIn.post.append(newPost)
-        loggedIn.profile.posts += 1
-        presentationMode.wrappedValue.dismiss() //dismisses the current view
+        if content.isEmpty {
+            isEmpty = true
+        } else {
+            isPublished = true
+            let newPost = Post(userName: loggedIn.profile.userName, avatar: loggedIn.profile.avatar, userImage: "", caption: content, hasImage: false)
+            loggedIn.post.append(newPost)
+            loggedIn.profile.posts += 1
+            content = ""
+        }
     }
 }
 

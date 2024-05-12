@@ -16,33 +16,34 @@ struct Profile : Hashable{
 }
 
 struct AccountPage: View {
-   var profile : Profile
+    @Binding var user: User
+    @Binding var loggedIn: User
     @State var buttonTitle = "Follow"
     @State var isFollowed = false
     var body: some View {
         VStack{
             HStack{
                 VStack {
-                    Image(profile.avatar)
+                    Image(user.profile.avatar)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 70, height: 70)
                         .clipShape(Circle())
                         .padding(.horizontal, 10)
                     
-                    Text(profile.userName)
+                    Text(user.profile.userName)
                         .font(.system(size: 20))
                 }
                 .padding(.horizontal)
                 Spacer()
                 VStack {
-                    Text("\(profile.posts)")
+                    Text("\(user.profile.posts)")
                         .font(.system(size: 20))
                     Text("Posts")
                 }
                 .padding()
                 VStack {
-                    Text("\(profile.followers)")
+                    Text("\(user.profile.followers)")
                         .font(.system(size: 20))
                     Text("Followers")
                 }
@@ -50,7 +51,7 @@ struct AccountPage: View {
                 .frame(width: 80)
                 .padding(.trailing, -20)
                 VStack {
-                    Text("\(profile.following)")
+                    Text("\(user.profile.following)")
                         .font(.system(size: 20))
                     Text("Following")
                 }
@@ -60,12 +61,13 @@ struct AccountPage: View {
                 isFollowed.toggle()
                 if isFollowed == false {
                     buttonTitle = "Follow"
-//                    profile.followers -= 1
+                    user.profile.followers -= 1
+                    loggedIn.profile.following -= 1
                 } else {
                     buttonTitle = "Following"
-//                    profile.followers += 1
+                    user.profile.followers += 1
+                    loggedIn.profile.following += 1
                 }
-//                print(profile.followers)
             } label: {
                 Text(buttonTitle)
                     .frame(width: 340)
@@ -84,5 +86,7 @@ struct AccountPage: View {
 }
 
 #Preview {
-    AccountPage(profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0))
+    AccountPage(user: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [
+    Post(userName: "hac", avatar: "hacavatar", userImage: "", caption: "", hasImage: false)
+    ])), loggedIn: .constant(User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatat", following: 0, followers: 0, posts: 0), post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "", hasImage: false)])))
 }

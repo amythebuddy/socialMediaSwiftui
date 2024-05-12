@@ -17,16 +17,10 @@ struct Post : Hashable{
 
 struct homePage: View {
     @State var showView = false
-    @State var account: Profile = Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0)
-//    @State var posts: [Post] = [
-//        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
-//        Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false),
-//        Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true),
-//        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
-//        Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)
-//    ]
-//    var profiles: [Profile]
+    @State private var isMyself = false
+    @State var account: User = User(username: "", password: "", profile: Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "", avatar: "", userImage: "", caption: "", hasImage: false)])
     var users: [User] // passing data to display the post
+    @Binding var loggedIn: User
     var body: some View {
         NavigationView{
             ScrollView{
@@ -49,9 +43,10 @@ struct homePage: View {
                                 })
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 
-                                NavigationLink(destination: AccountPage(profile: account), isActive: $showView){
+                                NavigationLink(destination: AccountPage(user: $account, loggedIn: $loggedIn), isActive: $showView){
                                     EmptyView()
                                 }
+                                .disabled(isMyself)
                                 PostView(post: post) // showing the post about, image and caption
                                 Spacer()
                             }
@@ -66,8 +61,10 @@ struct homePage: View {
     }
     func searchProfile(username: String){
         for user in users{
-            if user.profile.userName == username { // search the profile of the person who add post
-                account = user.profile // change the account so the AccountPage receive the person who add post
+            if loggedIn.username == username {
+                isMyself = true
+            } else if user.profile.userName == username { // search the profile of the person who add post
+                account = user // change the account so the AccountPage receive the person who add post
                 showView = true
             }
         }
@@ -84,5 +81,5 @@ struct homePage: View {
         ]),
         User(username: "Daily Meme", password: "123", profile: Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
              post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true)])
-    ])
+    ], loggedIn: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "", caption: "", hasImage: false)])))
 }

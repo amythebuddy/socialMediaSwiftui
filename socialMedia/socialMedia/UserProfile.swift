@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UserProfile: View {
     var loggedIn: User
+    @State private var showView = false
     var tabSelected: Int
     var body: some View {
         VStack{
@@ -44,6 +45,19 @@ struct UserProfile: View {
                     Text("Following")
                 }
                 .padding(20)
+            }
+            Button(action: {
+               showView = true
+            }, label: {
+                Text("Edit")
+                .foregroundColor(.white)
+                .font(.custom("BebasNeue-Regular", size: 40))
+                .frame(maxWidth: 200, maxHeight: 50)
+                .background(Color.purple)
+                .cornerRadius(50)
+            })
+            NavigationLink(destination: EditUserProfile(), isActive: $showView){ // go to another page with stored data
+                EmptyView()
             }
             Divider()
                 .frame(height: 4)

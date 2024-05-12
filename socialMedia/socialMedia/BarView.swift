@@ -16,7 +16,7 @@ struct BarView: View {
         NavigationView{
             TabView{
                 VStack {
-                    homePage(users: users)
+                    homePage(users: users, loggedIn: $loggedIn)
                 }
                     .tabItem {
                         Label("", systemImage: "house")
