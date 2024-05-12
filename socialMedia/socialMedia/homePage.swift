@@ -31,27 +31,28 @@ struct homePage: View {
         NavigationView{
             ScrollView{
                 LazyVStack {
-                    ForEach(users.indices, id: \.self) { i in
-                        ForEach(users[i].post.indices, id: \.self) { j in //show each user avatar and username
+                    ForEach(users, id: \.self) { user in // for each user in users array
+                        ForEach(user.post, id: \.self) { post in // for each post
+                            //show each user avatar and username
                             VStack{
                                 Button(action: {
-                                    searchProfile(username: users[i].post[j].userName)
+                                    searchProfile(username: post.userName)
                                 }, label: {
-                                    Image(users[i].post[j].avatar)
+                                    Image(post.avatar)
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 60, height: 60)
                                         .clipShape(Circle())
                                         .padding(.horizontal, 10)
-                                    Text(users[i].post[j].userName)
-                                        .font(.system(size: 20))
+                                    Text(post.userName)
+                                        .font(.system(size: 25))
                                 })
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 NavigationLink(destination: AccountPage(profile: account), isActive: $showView){
                                     EmptyView()
                                 }
-                                PostView(post: users[i].post[j]) // showing the post about, image and caption
+                                PostView(post: post) // showing the post about, image and caption
                                 Spacer()
                             }
                         }
@@ -77,8 +78,11 @@ struct homePage: View {
     homePage(users: [
         User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
              post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false)]),
-        User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true), Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]),
-        User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
-             post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false)])
+        User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [
+            Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true), 
+            Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)
+        ]),
+        User(username: "Daily Meme", password: "123", profile: Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
+             post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true)])
     ])
 }

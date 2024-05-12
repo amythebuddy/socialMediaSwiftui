@@ -8,22 +8,21 @@
 import SwiftUI
 
 struct AddPost: View {
-    @Binding var post : [Post]
-    @State var profile: Profile
+    @Binding var loggedIn: User
     @State var content = ""
     @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
         NavigationView{
             VStack{
                 HStack {
-                    Image(profile.avatar)
+                    Image(loggedIn.profile.avatar)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 70, height: 70)
                         .clipShape(Circle())
                         .padding(.horizontal, 10)
                     
-                    Text(profile.userName)
+                    Text(loggedIn.profile.userName)
                         .font(.system(size: 20))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -46,12 +45,12 @@ struct AddPost: View {
         }
     }
     func publishPost(){
-        let newPost = Post(userName: profile.userName, avatar: profile.avatar, userImage: "", caption: content, hasImage: false)
-        post.append(newPost)
+        let newPost = Post(userName: loggedIn.profile.userName, avatar: loggedIn.profile.avatar, userImage: "", caption: content, hasImage: false)
+        loggedIn.post.append(newPost)
         presentationMode.wrappedValue.dismiss() //dismisses the current view
     }
 }
 
 #Preview {
-    AddPost(post: .constant([]), profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0))
+    AddPost(loggedIn: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "", caption: "", hasImage: false)])))
 }

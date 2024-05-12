@@ -23,7 +23,7 @@ struct BarView: View {
                 }
                     .tag(1)
                 
-                AddPost(post: .constant([]), profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0))
+                AddPost(loggedIn: loggedIn)
                     .tabItem {
                         Label("", systemImage: "plus.square")
                         
