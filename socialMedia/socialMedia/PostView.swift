@@ -10,20 +10,19 @@ import SwiftUI
 
 struct PostView: View {
     var post : Post
-    @State var showView = false
-    @State private var userFound = false
-    @State var like = false
+    @State private var showView = false // to change the view
+    @State private var like = false // to change the heart
     var body: some View {
         NavigationView{
             VStack{
-                if post.hasImage == true {
-                    Image(post.userImage)
+                if post.hasImage == true { // if post has image
+                    Image(post.userImage) // display the image
                         .resizable()
                         .scaledToFit()
                         .frame(height: 300)
                         .clipShape(Rectangle())
                 } else {
-                    Text(post.caption)
+                    Text(post.caption) // only display text
                         .frame(width: 350, height: 250)
                         .background(.gray.opacity(0.1))
                         .font(.system(size: 20))

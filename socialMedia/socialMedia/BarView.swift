@@ -8,34 +8,29 @@
 import SwiftUI
 
 struct BarView: View {
-    @State var users : [User]
-    @State var loggedIn: User
-//    var profiles : [Profile]
-    @State private var tabSelected: Int = 1
+    @Binding var users : [User] // pass all the users
+    @Binding var loggedIn: User // pass the person who logs in
     var body: some View {
         NavigationView{
             TabView{
                 VStack {
-                    homePage(users: users, loggedIn: $loggedIn)
+                    homePage(users: $users, loggedIn: $loggedIn)
                 }
                     .tabItem {
                         Label("", systemImage: "house")
                 }
-                    .tag(1)
                 
-                AddPost(loggedIn: $loggedIn)
+                AddPost(loggedIn: $loggedIn, users: $users)
                     .tabItem {
                         Label("", systemImage: "plus.square")
                         
                     }
-                    .tag(2)
                 VStack {
-                    UserProfile(loggedIn: loggedIn, tabSelected: tabSelected)
+                    UserProfile(loggedIn: $loggedIn, users: $users)
                 }
                     .tabItem {
                             Label("",systemImage: "person")
                     }
-                    .tag(3)
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -43,5 +38,5 @@ struct BarView: View {
 }
 
 #Preview {
-    BarView(users: [User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "", hasImage: false)])], loggedIn: User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "amy", avatar: "", userImage: "", caption: "", hasImage: false)]))
+    BarView(users: .constant([User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "", hasImage: false)])]), loggedIn:.constant(User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "amy", avatar: "", userImage: "", caption: "", hasImage: false)])))
 }

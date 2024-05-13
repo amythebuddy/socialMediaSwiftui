@@ -23,7 +23,7 @@ struct AccountPage: View {
     var body: some View {
         VStack{
             HStack{
-                VStack {
+                VStack { // display avatar and username
                     Image(user.profile.avatar)
                         .resizable()
                         .scaledToFit()
@@ -61,20 +61,20 @@ struct AccountPage: View {
                 isFollowed.toggle()
                 if isFollowed == false {
                     buttonTitle = "Follow"
-                    user.profile.followers -= 1
-                    loggedIn.profile.following -= 1
+                    user.profile.followers -= 1 // remove 1 followers to that user
+                    loggedIn.profile.following -= 1 // remove 1 following to person who logs in
                 } else {
                     buttonTitle = "Following"
-                    user.profile.followers += 1
-                    loggedIn.profile.following += 1
+                    user.profile.followers += 1 // add 1 followers to that user
+                    loggedIn.profile.following += 1 // add 1 following to person who logs in
                 }
             } label: {
                 Text(buttonTitle)
                     .frame(width: 340)
                     .padding(6)
-                    .foregroundStyle(isFollowed ? .black : .white)
+                    .foregroundStyle(isFollowed ? .black : .white) // if isFollowed is true, change font color to black, else white
                     .font(.system(size: 23))
-                    .background(isFollowed ? .gray.opacity(0.2) : .blue)
+                    .background(isFollowed ? .gray.opacity(0.2) : .blue) // if isFollowed is true, change background to light gray, else blue
                     .cornerRadius(10)
             }
             Divider()

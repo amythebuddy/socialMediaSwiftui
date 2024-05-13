@@ -9,10 +9,10 @@ import SwiftUI
 
 struct AddPost: View {
     @Binding var loggedIn: User
-    @State var content = "What is on your mind?"
-    @State private var isPublished = false
+    @Binding var users: [User]
+    @State var content = ""
+    @State private var isPublished = false // alert the user that they have posted
     @State private var isEmpty = false
-    @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
         NavigationView{
             VStack{
@@ -31,10 +31,6 @@ struct AddPost: View {
                 TextEditor(text: $content) //TextEditor will grab the content that user put
                     .frame(maxWidth: 370, maxHeight: 500)
                     .padding()
-                    .foregroundStyle(content == "What is on your mind?" ? .gray : .primary)
-                    .onTapGesture {
-                        content = ""
-                    }
                     .font(.system(size: 30))
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(10)
@@ -48,15 +44,15 @@ struct AddPost: View {
                         .background(Color.purple)
                         .cornerRadius(50)
                 })
-                .alert(isPresented: $isPublished){ //alert if the user doesn't input anything
-                    Alert(
-                        title: Text("You successfully published a post!")
-                    )
-                }
                 .alert(isPresented: $isEmpty){ //alert if the user doesn't input anything
                     Alert(
                         title: Text("You did not type something"),
                         message: Text("Please type to post")
+                    )
+                }
+                .alert(isPresented: $isPublished){ //tell the user that they have posted
+                    Alert(
+                        title: Text("You successfully published a post!")
                     )
                 }
             }
@@ -66,15 +62,21 @@ struct AddPost: View {
         if content.isEmpty {
             isEmpty = true
         } else {
-            isPublished = true
+            //create new post
             let newPost = Post(userName: loggedIn.profile.userName, avatar: loggedIn.profile.avatar, userImage: "", caption: content, hasImage: false)
-            loggedIn.post.append(newPost)
-            loggedIn.profile.posts += 1
-            content = ""
+            loggedIn.post.append(newPost) // append it to userProfile post so they can see it in their profile
+            loggedIn.profile.posts += 1 // add 1 post to their profile
+            for i in users.indices { // for each user in array of users
+                if users[i].username == loggedIn.username{ // if spotted the loggedIn user
+                    users[i].post.append(newPost) // append it to the post array so it appears on the feed with other people's posts
+                }
+            }
+            content = "" // reset content
+            isPublished = true
         }
     }
 }
 
 #Preview {
-    AddPost(loggedIn: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "", caption: "", hasImage: false)])))
+    AddPost(loggedIn: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "", caption: "", hasImage: false)])), users: .constant([]))
 }

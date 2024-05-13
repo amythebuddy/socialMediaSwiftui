@@ -11,11 +11,12 @@ struct loginPage: View {
     @State var name = ""
     @State var pass = ""
     @State private var alert = false // for empty input
+    @State private var isSameName = false // checking if there is already a user with the same username
     @Binding var users : [User]
     @Environment(\.presentationMode) var presentationMode //@Environment allows you to control the presentation mode of the current view
     var body: some View {
         ZStack{
-            Image("blue")
+            Image("blue") // background
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
@@ -51,8 +52,14 @@ struct loginPage: View {
                 })
                 .alert(isPresented: $alert){ //alert if the user doesn't input anything
                     Alert(
-                        title: Text("You did not type something"),
-                        message: Text("Please type in to create an account")
+                        title: Text("You did not type something."),
+                        message: Text("Please type in to create an account.")
+                    )
+                }
+                .alert(isPresented: $isSameName){ //alert if the user inputs the name that is taken
+                    Alert(
+                        title: Text("Your username is taken."),
+                        message: Text("Please create with a new username.")
                     )
                 }
                 .padding(.top, 80)
@@ -64,7 +71,15 @@ struct loginPage: View {
             alert = true //to alert the user that input has nothing
         } else {
             alert = false
-            let newUser = User(username: name, password: pass, profile: Profile(userName: name, avatar: "person", following: 0, followers: 0, posts: 0), post: [Post(userName: name, avatar: "person", userImage: "", caption: "", hasImage: false)]) // create new user
+            for user in users{ // for each user in the array of users
+                if user.username == name{ // if there is a user with the same name
+                    isSameName = true // alert the user
+                    name = ""
+                    pass = ""
+                    return
+                }
+            }
+            let newUser = User(username: name, password: pass, profile: Profile(userName: name, avatar: "person", following: 0, followers: 0, posts: 0), post: []) // create new user
             users.append(newUser) // append newUser to the users array
             presentationMode.wrappedValue.dismiss() //dismisses the current view
         }

@@ -19,16 +19,11 @@ struct ContentView: View {
              post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false)]),
         User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
              post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
-                    Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true)]),
+                    Post(userName: "hac", avatar: "hacavatar", userImage: "meme", caption: "hello", hasImage: true)]),
         User(username: "Daily Meme", password: "123", profile: Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
              post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true)])
     ]
     @State var loggedIn: User = User(username: "", password: "", profile: Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "", avatar: "", userImage: "", caption: "", hasImage: false)])
-//    @State var profiles: [Profile] = [
-//        Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
-//        Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
-//        Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5)
-//    ]
     @State var name = ""
     @State var pass = ""
     @State var showView = false
@@ -89,7 +84,7 @@ struct ContentView: View {
                         )
                     }
                     .padding(.top, 80)
-                    NavigationLink(destination: BarView(users: users, loggedIn: loggedIn), isActive: $showView){ // go to another page with stored data
+                    NavigationLink(destination: BarView(users: $users, loggedIn: $loggedIn), isActive: $showView){ // go to another page with stored data
                         EmptyView()
                     }
                     Spacer()
