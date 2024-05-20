@@ -69,7 +69,7 @@ struct UserProfile: View {
                 } else { // else display their post
                     ScrollView{
                         LazyVStack {
-                            ForEach(loggedIn.post, id: \.self) { post in
+                            ForEach($loggedIn.post, id: \.self) { $post in
                                 HStack {
                                     Image(post.avatar)
                                         .resizable()
@@ -82,7 +82,7 @@ struct UserProfile: View {
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding()
-                                PostView(post: post)
+                                PostView(post: $post)
                             }
                         }
                     }
@@ -94,14 +94,14 @@ struct UserProfile: View {
 }
 
 #Preview {
-    UserProfile(loggedIn: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "", caption: "", hasImage: false)])), users: .constant([
+    UserProfile(loggedIn: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "", amountOfLikes: 5, caption: "", hasImage: false)])), users: .constant([
         User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
-             post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false)]),
+             post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", amountOfLikes: 10, caption: "I'm tired", hasImage: false)]),
         User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [
-            Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
-            Post(userName: "hac", avatar: "hacavatar", userImage: "meme", caption: "Good morning everyone!", hasImage: true)
+            Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", amountOfLikes: 0, caption: "Good morning everyone!", hasImage: true),
+            Post(userName: "hac", avatar: "hacavatar", userImage: "meme", amountOfLikes: 5, caption: "Good morning everyone!", hasImage: true)
         ]),
         User(username: "Daily Meme", password: "123", profile: Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
-             post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true)])
+             post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", amountOfLikes: 100, caption: "What is your 9 to 5 routine?", hasImage: true)])
     ]))
 }

@@ -87,6 +87,6 @@ struct AccountPage: View {
 
 #Preview {
     AccountPage(user: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [
-    Post(userName: "hac", avatar: "hacavatar", userImage: "", caption: "", hasImage: false)
-    ])), loggedIn: .constant(User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatat", following: 0, followers: 0, posts: 0), post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "", hasImage: false)])))
+        Post(userName: "hac", avatar: "hacavatar", userImage: "", amountOfLikes: 0, caption: "", hasImage: false)
+    ])), loggedIn: .constant(User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatat", following: 0, followers: 0, posts: 0), post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", amountOfLikes: 6, caption: "", hasImage: false)])))
 }

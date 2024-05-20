@@ -63,7 +63,7 @@ struct AddPost: View {
             isEmpty = true
         } else {
             //create new post
-            let newPost = Post(userName: loggedIn.profile.userName, avatar: loggedIn.profile.avatar, userImage: "", caption: content, hasImage: false)
+            let newPost = Post(userName: loggedIn.profile.userName, avatar: loggedIn.profile.avatar, userImage: "", amountOfLikes: 0, caption: content, hasImage: false)
             loggedIn.post.append(newPost) // append it to userProfile post so they can see it in their profile
             loggedIn.profile.posts += 1 // add 1 post to their profile
             for i in users.indices { // for each user in array of users
@@ -78,5 +78,5 @@ struct AddPost: View {
 }
 
 #Preview {
-    AddPost(loggedIn: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "", caption: "", hasImage: false)])), users: .constant([]))
+    AddPost(loggedIn: .constant(User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "", amountOfLikes: 5, caption: "", hasImage: false)])), users: .constant([]))
 }

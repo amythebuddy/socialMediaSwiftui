@@ -38,5 +38,5 @@ struct BarView: View {
 }
 
 #Preview {
-    BarView(users: .constant([User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "", hasImage: false)])]), loggedIn:.constant(User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "amy", avatar: "", userImage: "", caption: "", hasImage: false)])))
+    BarView(users: .constant([User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 0, followers: 0, posts: 0), post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", amountOfLikes: 0, caption: "", hasImage: false)])]), loggedIn:.constant(User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "amy", avatar: "", userImage: "", amountOfLikes: 10, caption: "", hasImage: false)])))
 }

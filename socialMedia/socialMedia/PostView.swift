@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct PostView: View {
-    var post : Post
+    @Binding var post : Post
     @State private var showView = false // to change the view
     @State private var like = false // to change the heart
     var body: some View {
@@ -31,7 +31,11 @@ struct PostView: View {
                 HStack{
                     Button {
                         like.toggle()
-                        
+                        if like == true {
+                            post.amountOfLikes += 1
+                        } else {
+                            post.amountOfLikes -= 1
+                        }
                     } label: {
                         Image(systemName: like ? "heart.fill" : "heart")
                             .font(.system(size: 25))
@@ -47,6 +51,28 @@ struct PostView: View {
                 }
                 .padding(.vertical, -15)
                 .frame(maxWidth: .infinity, alignment: .leading)
+
+                // if there is like and amount of like is 0, then display the like
+                if like == true && (post.amountOfLikes == 0 || post.amountOfLikes == 1){
+                    Text("\(post.amountOfLikes) like")
+                        .font(.system(size: 20))
+                        .padding(.vertical, -10)
+                        .padding(.horizontal)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                
+//                    else if post.amountOfLikes == 1{
+//                    Text("\(post.amountOfLikes) like")
+//                        .font(.system(size: 20))
+//                        .padding(.vertical, -10)
+//                        .padding(.horizontal)
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+                } else {
+                    Text("\(post.amountOfLikes) likes")
+                        .font(.system(size: 20))
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
                 HStack {
                     Text(post.userName)
                         .padding()
@@ -55,8 +81,8 @@ struct PostView: View {
                     Text(post.caption)
                         .padding(.horizontal, -10)
                 }
+                .padding(.bottom, -10)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, -6)
                 Divider()
             }
             
@@ -66,5 +92,5 @@ struct PostView: View {
 
 
 #Preview {
-    PostView(post: Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true))
+    PostView(post: .constant(Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", amountOfLikes: 0, caption: "Good morning everyone!", hasImage: true)))
 }

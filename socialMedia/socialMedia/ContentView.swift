@@ -16,14 +16,14 @@ struct User : Hashable {
 struct ContentView: View {
     @State var users: [User] = [ // dummy data
         User(username: "amy", password: "123", profile: Profile(userName: "amy", avatar: "amyavatar", following: 10, followers: 20, posts: 1),
-             post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", caption: "I'm tired", hasImage: false)]),
+             post: [Post(userName: "amy", avatar: "amyavatar", userImage: "", amountOfLikes: 5, caption: "I'm tired", hasImage: false)]),
         User(username: "hac", password: "123", profile: Profile(userName: "hac", avatar: "hacavatar", following: 90, followers: 10, posts: 2),
-             post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", caption: "Good morning everyone!", hasImage: true),
-                    Post(userName: "hac", avatar: "hacavatar", userImage: "meme", caption: "hello", hasImage: true)]),
+             post: [Post(userName: "hac", avatar: "hacavatar", userImage: "prettysunrise", amountOfLikes: 0, caption: "Good morning everyone!", hasImage: true),
+                    Post(userName: "hac", avatar: "hacavatar", userImage: "meme", amountOfLikes: 5, caption: "hello", hasImage: true)]),
         User(username: "Daily Meme", password: "123", profile: Profile(userName: "Daily Meme", avatar: "healTheWorld", following: 0, followers: 100, posts: 5),
-             post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", caption: "What is your 9 to 5 routine?", hasImage: true)])
+             post: [Post(userName: "Daily Meme", avatar: "healTheWorld", userImage: "meme", amountOfLikes: 100, caption: "What is your 9 to 5 routine?", hasImage: true)])
     ]
-    @State var loggedIn: User = User(username: "", password: "", profile: Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "", avatar: "", userImage: "", caption: "", hasImage: false)])
+    @State var loggedIn: User = User(username: "", password: "", profile: Profile(userName: "", avatar: "", following: 0, followers: 0, posts: 0), post: [Post(userName: "", avatar: "", userImage: "", amountOfLikes: 0, caption: "", hasImage: false)])
     @State var name = ""
     @State var pass = ""
     @State var showView = false
